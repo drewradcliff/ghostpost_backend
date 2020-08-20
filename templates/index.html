@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>👻</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+<body>
+<h1>👻 Ghost Post 👻</h1>
+<ul class="post_list">
+{% for post in posts %}
+    <li>
+        <div class="post">
+            <div class="votes">
+                <a href="">⬆️</a>
+                <br />
+                <a href="">⬇️</a>
+            </div>
+            <div class="post_text">
+                <ul>
+                    <li>{{ post.post_text }}
+                        <ul>
+                            <li>Votes: {{ post.up_votes|add:post.down_votes }}</li>
+                            <li>Submitted: {{ post.submission_date }}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+</body>
+</html>

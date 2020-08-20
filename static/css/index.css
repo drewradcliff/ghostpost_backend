@@ -1,0 +1,28 @@
+.votes {
+  float: left;
+  width: 30px;
+  /* margin: 0px 10px; */
+}
+
+.post {
+  display: inline-block;
+  margin: 5px;
+}
+
+ul {
+  list-style: none;
+}
+
+.post_text {
+  float: left;
+}
+
+.post_text > ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
