@@ -20,6 +20,8 @@ from homepage import views
 
 urlpatterns = [
     path('', views.index, name="homepage"),
-    path('addpost', views.add_post),
+    path('addpost/', views.add_post),
+    path('upvote/<int:post_id>/', views.add_upvote),
+    path('downvote/<int:post_id>/', views.add_downvote),
     path('admin/', admin.site.urls),
 ]

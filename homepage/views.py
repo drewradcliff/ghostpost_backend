@@ -28,3 +28,17 @@ def add_post(request):
 
     form = AddPostForm()
     return render(request, "generic_form.html", {"form": form})
+
+
+def add_upvote(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    post.up_votes += 1
+    post.save()
+    return HttpResponseRedirect(reverse("homepage"))
+
+
+def add_downvote(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    post.down_votes -= 1
+    post.save()
+    return HttpResponseRedirect(reverse("homepage"))
