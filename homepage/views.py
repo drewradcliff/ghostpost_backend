@@ -7,7 +7,7 @@ from homepage.forms import AddPostForm
 
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-submission_date')
     return render(request, "index.html", {"posts": posts})
 
 
@@ -15,15 +15,6 @@ def add_post(request):
     if request.method == "POST":
         form = AddPostForm(request.POST)
         form.save()
-        # if form.is_valid():
-        #     data = form.cleaned_data
-        #     new_post = Post.objects.create(
-        #         is_boast=data.get('is_boast'),
-        #         post_text=data.get('post_text'),
-        #         up_votes=0,
-        #         down_votes=0,
-        #         submission_date=
-        #     )
         return HttpResponseRedirect(reverse("homepage"))
 
     form = AddPostForm()
@@ -42,3 +33,13 @@ def add_downvote(request, post_id):
     post.down_votes -= 1
     post.save()
     return HttpResponseRedirect(reverse("homepage"))
+
+
+def filter_boasts(request):
+    boasts = Post.objects.filter(is_boast=True)
+    return render(request, "index.html", {"posts": boasts})
+
+
+def filter_roasts(request):
+    roasts = Post.objects.filter(is_boast=False)
+    return render(request, "index.html", {"posts": roasts})

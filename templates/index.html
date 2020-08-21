@@ -7,28 +7,43 @@
 </head>
 <body>
 <h1>👻 Ghost Post 👻</h1>
-<ul class="post_list">
-{% for post in posts %}
-    <li>
-        <div class="post">
-            <div class="votes">
-                <a href="/upvote/{{ post.id }}">⬆️</a>
-                <br />
-                <a href="/downvote/{{ post.id }}">⬇️</a>
+    <div class="navigation">
+        <a href="/">All</a>
+        <a href="/boasts/">Boasts</a>
+        <a href="/roasts/">Roasts</a>
+        <a href="/addpost/">New Post</a>
+    </div>
+    <ul class="post_list">
+        {% for post in posts %}
+        <li>
+            <div class="post">
+                <div class="vote_num">
+                    {{ post.up_votes|add:post.down_votes }}
+                </div>
+                <div class="votes">
+                    <a href="/upvote/{{ post.id }}">⬆️</a>
+                    <br />
+                    <a href="/downvote/{{ post.id }}">⬇️</a>
+                </div>
+                <div class="post_text">
+                    <ul>
+                        <li>
+                        {% if post.is_boast %}
+                        <strong>Boast</strong>
+                        {% else %}
+                        <strong>Roast</strong>
+                        {% endif %} 
+                        </li>
+                        <li>{{ post.post_text }}
+                            <ul>
+                                <li>Submitted: {{ post.submission_date }}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="post_text">
-                <ul>
-                    <li>{{ post.post_text }}
-                        <ul>
-                            <li>Votes: {{ post.up_votes|add:post.down_votes }}</li>
-                            <li>Submitted: {{ post.submission_date }}</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </li>
-{% endfor %}
-</ul>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

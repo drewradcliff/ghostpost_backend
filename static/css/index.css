@@ -1,7 +1,19 @@
+.navigation {
+  /* padding-left: 20px; */
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.vote_num {
+  float: left;
+  width: 25px;
+  padding-top: 15px;
+}
+
 .votes {
   float: left;
   width: 30px;
-  /* margin: 0px 10px; */
 }
 
 .post {
