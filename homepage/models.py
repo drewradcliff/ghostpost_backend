@@ -8,3 +8,4 @@ class Post(models.Model):
     up_votes = models.IntegerField(default=0)
     down_votes = models.IntegerField(default=0)
     submission_date = models.DateTimeField(default=timezone.now)
+    score = models.IntegerField(default=0)

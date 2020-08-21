@@ -25,5 +25,6 @@ urlpatterns = [
     path('downvote/<int:post_id>/', views.add_downvote),
     path('boasts/', views.filter_boasts),
     path('roasts/', views.filter_roasts),
+    path('top/', views.sort_top),
     path('admin/', admin.site.urls),
 ]

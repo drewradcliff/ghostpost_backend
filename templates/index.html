@@ -11,6 +11,7 @@
         <a href="/">All</a>
         <a href="/boasts/">Boasts</a>
         <a href="/roasts/">Roasts</a>
+        <a href="/top/">Top</a>
         <a href="/addpost/">New Post</a>
     </div>
     <ul class="post_list">
@@ -18,7 +19,7 @@
         <li>
             <div class="post">
                 <div class="vote_num">
-                    {{ post.up_votes|add:post.down_votes }}
+                    {{ post.score }}
                 </div>
                 <div class="votes">
                     <a href="/upvote/{{ post.id }}">⬆️</a>

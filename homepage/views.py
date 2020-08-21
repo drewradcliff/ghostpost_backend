@@ -24,13 +24,15 @@ def add_post(request):
 def add_upvote(request, post_id):
     post = Post.objects.filter(id=post_id).first()
     post.up_votes += 1
+    post.score = post.up_votes - post.down_votes
     post.save()
     return HttpResponseRedirect(reverse("homepage"))
 
 
 def add_downvote(request, post_id):
     post = Post.objects.filter(id=post_id).first()
-    post.down_votes -= 1
+    post.down_votes += 1
+    post.score = post.up_votes - post.down_votes
     post.save()
     return HttpResponseRedirect(reverse("homepage"))
 
@@ -43,3 +45,8 @@ def filter_boasts(request):
 def filter_roasts(request):
     roasts = Post.objects.filter(is_boast=False)
     return render(request, "index.html", {"posts": roasts})
+
+
+def sort_top(request):
+    top = Post.objects.all().order_by('-score')
+    return render(request, "index.html", {"posts": top})
