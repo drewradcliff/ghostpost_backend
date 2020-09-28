@@ -1,52 +1,13 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
-
-from datetime import datetime
 
 from homepage.models import Post
-from homepage.forms import AddPostForm
+from homepage.serializers import PostSerializer
+
+from rest_framework import viewsets
 
 
-def index(request):
-    posts = Post.objects.all().order_by('-submission_date')
-    return render(request, "index.html", {"posts": posts})
-
-
-def add_post(request):
-    if request.method == "POST":
-        form = AddPostForm(request.POST)
-        form.save()
-        return HttpResponseRedirect(reverse("homepage"))
-
-    form = AddPostForm()
-    return render(request, "generic_form.html", {"form": form})
-
-
-def add_upvote(request, post_id):
-    post = Post.objects.filter(id=post_id).first()
-    post.up_votes += 1
-    post.score = post.up_votes - post.down_votes
-    post.save()
-    return HttpResponseRedirect(reverse("homepage"))
-
-
-def add_downvote(request, post_id):
-    post = Post.objects.filter(id=post_id).first()
-    post.down_votes += 1
-    post.score = post.up_votes - post.down_votes
-    post.save()
-    return HttpResponseRedirect(reverse("homepage"))
-
-
-def filter_boasts(request):
-    boasts = Post.objects.filter(is_boast=True)
-    return render(request, "index.html", {"posts": boasts})
-
-
-def filter_roasts(request):
-    roasts = Post.objects.filter(is_boast=False)
-    return render(request, "index.html", {"posts": roasts})
-
-
-def sort_top(request):
-    top = Post.objects.all().order_by('-score')
-    return render(request, "index.html", {"posts": top})
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows posts to be viewed or edited.
+    """
+    queryset = Post.objects.all().order_by('-submission_date')
+    serializer_class = PostSerializer
