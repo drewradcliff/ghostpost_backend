@@ -14,6 +14,20 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-submission_date')
     serializer_class = PostSerializer
 
+    @action(detail=False)
+    def boasts(self, request):
+        boasts = Post.objects.filter(
+            is_boast=True).order_by('-submission_date')
+        serializer = self.get_serializer(boasts, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False)
+    def roasts(self, request):
+        roasts = Post.objects.filter(
+            is_boast=False).order_by('-submission_date')
+        serializer = self.get_serializer(roasts, many=True)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['post'])
     def add_upvote(self, request, pk=None):
         post = self.get_object()
