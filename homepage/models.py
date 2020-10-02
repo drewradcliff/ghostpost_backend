@@ -9,3 +9,6 @@ class Post(models.Model):
     down_votes = models.IntegerField(default=0)
     submission_date = models.DateTimeField(default=timezone.now)
     score = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.post_text

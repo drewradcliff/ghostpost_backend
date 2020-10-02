@@ -28,6 +28,12 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(roasts, many=True)
         return Response(serializer.data)
 
+    @action(detail=False)
+    def top(self, request):
+        top_posts = top = Post.objects.all().order_by('-score')
+        serializer = self.get_serializer(top_posts, many=True)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['post'])
     def add_upvote(self, request, pk=None):
         post = self.get_object()
